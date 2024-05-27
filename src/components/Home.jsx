@@ -1,3 +1,4 @@
+import SongCard from "./SongCard"
 
 const Home = () => {
     // eslint-disable-next-line no-undef
@@ -14,6 +15,7 @@ const Home = () => {
                 <option key={genre} value={title}> {genre} </option>
             )}
         </select>
+        <SongCard />
     </div>
   )
 }
