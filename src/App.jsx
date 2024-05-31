@@ -1,23 +1,28 @@
 import Sidebar from "./components/Sidebar"
 import Home from "./components/Home"
 import { Login } from "./components/Login"
-import {useState, useEffect} from 'react'
+import { useAuth } from "./contexts/AuthContext"
+import {Routes, Route } from 'react-router-dom'
+import Library from "./components/Library"
 
 function App() {
-  const [token, setToken] = useState(null);
-  useEffect(()=>{
-    const hash = window.location.hash;
-    const tok = hash.split("&")[0].split("=")[1];
-    window.localStorage.setItem("token",tok);
-    setToken[tok]; 
-  },[])
 
-  return (!token?(<Login/>)  :(
+  const {token} = useAuth();
+
+  return (!token ? (
+    <Routes>
+      <Route path="/*" element={<Login />} />
+    </Routes>
+  ):(
     <>
       <div className="flex">
         <Sidebar />
-        <div className="min-h-screen w-full bg-gradient-to-br from-[#310E68] to-[#5F0F40]">
-          <Home />
+        <div>
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/library" element={<Library/>} />
+          </Routes>
+          
         </div>
       </div>
     </>
